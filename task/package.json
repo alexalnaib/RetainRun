@@ -1,0 +1,37 @@
+{
+  "name": "retain-run",
+  "version": "1.0.0",
+  "description": "Task to retain Azure DevOps pipeline runs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexalnaib"
+  },
+  "keywords": [
+    "Azure",
+    "DevOps"
+  ],
+  "author": "Alex Alnaib",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/mocha": "^9.1.0",
+    "@types/node": "^17.0.21",
+    "@types/q": "^1.5.5",
+    "@types/react": "^17.0.40",
+    "@types/react-dom": "^17.0.13",
+    "install": "^0.13.0",
+    "npm": "^8.5.5",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "sync-request": "^6.1.0",
+    "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "azure-devops-node-api": "^11.1.1",
+    "azure-pipelines-task-lib": "^3.2.0",
+    "vss-web-extension-sdk": "^5.141.0"
+  }
+}

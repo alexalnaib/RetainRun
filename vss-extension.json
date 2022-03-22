@@ -1,0 +1,39 @@
+{
+    "manifestVersion": 1,
+    "id": "retain-run",
+    "name": "Retain Run",
+    "version": "0.0.1",
+    "publisher": "alexalnaib",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "description": "Retains Azure DevOps pipeline run",
+    "categories": [
+        "Azure Pipelines"
+    ],
+    "icons": {
+        "default": "images/icon.png"
+    },
+    "files": [
+        {
+            "path": "task"
+        },
+        {
+            "path": "images"
+        }
+    ],
+    "contributions": [
+        {
+            "id": "retain-run",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "task"
+            }
+        }
+    ]
+}
