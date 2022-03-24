@@ -23,7 +23,12 @@ class RetainRun {
             });
             const buildApi = yield connection.getBuildApi();
             yield buildApi.addRetentionLeases(retentionLease, teamProject);
-            console.log(`Retained pipeline run ${runId}`);
+            if (daysValid === 365000) {
+                console.log(`Retained pipeline run ${runId} indefinitely`);
+            }
+            else {
+                console.log(`Retained pipeline run ${runId} for ${daysValid} days`);
+            }
         });
     }
 }
