@@ -38,6 +38,7 @@ class TaskHelper {
             const projectName = task_1.getVariable("System.TeamProject");
             const buildId = task_1.getVariable("Build.BuildId");
             const definitionId = task_1.getVariable("System.DefinitionId");
+            const owner = `Pipeline: 'Retain Run Task'`;
             if (projectName === undefined) {
                 throw Error(`Input ${projectName} project name is empty`);
             }
@@ -50,7 +51,8 @@ class TaskHelper {
             const variables = {
                 projectName: projectName ? projectName : "Unknown",
                 buildId: Number(buildId) ? Number(buildId) : 0,
-                definitionId: Number(definitionId) ? Number(definitionId) : 0
+                definitionId: Number(definitionId) ? Number(definitionId) : 0,
+                owner: owner
             };
             return variables;
         });
@@ -58,14 +60,14 @@ class TaskHelper {
     getParameters() {
         return __awaiter(this, void 0, void 0, function* () {
             const daysToRetain = task_1.getInput("days", true);
-            const owner = `Pipeline: 'Retain Run Task'`;
             let daysValid = 0;
             if (daysToRetain === undefined) {
                 throw Error(`Input ${daysToRetain} is empty`);
             }
+            const variables = yield this.getVariables();
             let parameters = {
                 daysToRetain: Number(daysToRetain),
-                owner: owner
+                variables
             };
             if (parameters.daysToRetain === 0) {
                 daysValid = 365000;

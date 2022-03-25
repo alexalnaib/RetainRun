@@ -1,30 +1,34 @@
 import tl = require('azure-pipelines-task-lib/task');
-import * as azdev from "azure-devops-node-api/WebApi";
 
 import { IEndpoint } from './helpers/taskhelper/iendpoint';
 import { TaskHelper } from './helpers/taskhelper/taskhelper';
-import { RetainRun } from './helpers/retainrun/retainrun';
-import { IAzureDevOps } from './helpers/azuredevops/iazuredevops';
-import { AzureDevOps } from './helpers/azuredevops/azuredevops';
+import { RetainRun } from './retainrun/retainrun';
 import { ITaskHelper } from './helpers/taskhelper/itaskhelper';
 import { IParameters } from './helpers/taskhelper/iparameters';
-import { IVariables } from './helpers/taskhelper/ivariables';
-import { IRetainRun } from './helpers/retainrun/iretainrun';
+import { IRetainRun } from './retainrun/iretainrun';
+import { ApiFactory } from './apifactory/apifactory';
+import { IApiFactory } from './apifactory/iapifactory';
+import { IWorkerFactory } from './workerfactory/iworkerfactory';
+import { WorkerFactory } from './workerfactory/workerfactory';
+import { IRunRetainer } from './runretainer/irunretainer';
 
 async function run() {
 
 	const taskHelper: ITaskHelper = new TaskHelper();
-	const azureDevOps: IAzureDevOps = new AzureDevOps();
-	const retainRun: IRetainRun = new RetainRun();
 
 	try {
 
 		const endpoint: IEndpoint = await taskHelper.getEndpoint();
-		const connection: azdev.WebApi = await azureDevOps.getConnection(endpoint);
-		const variables: IVariables = await taskHelper.getVariables();
 		const parameters: IParameters = await taskHelper.getParameters();
 
-		await retainRun.setRunRetentionLease(variables.projectName, variables.buildId, variables.definitionId, parameters.daysToRetain, parameters.owner, connection);
+		const apiFactory: IApiFactory = new ApiFactory(endpoint);
+		const workerFactory: IWorkerFactory = new WorkerFactory(apiFactory);
+
+		const runRetainer: IRunRetainer = await workerFactory.createRunRetainer();
+
+		const retainRun: IRetainRun = new RetainRun(runRetainer);
+
+		await retainRun.setRunRetentionLease(parameters);
 
 		tl.setResult(tl.TaskResult.Succeeded, '');
 	}

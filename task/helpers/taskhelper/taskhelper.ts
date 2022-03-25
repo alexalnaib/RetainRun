@@ -5,7 +5,6 @@ import { IParameters } from "./iparameters";
 import { ITaskHelper } from "./itaskhelper";
 import { IVariables } from "./ivariables";
 
-
 export class TaskHelper implements ITaskHelper
 {
 	public async getEndpoint(): Promise<IEndpoint>
@@ -44,6 +43,7 @@ export class TaskHelper implements ITaskHelper
 		const projectName: string | undefined = getVariable("System.TeamProject");
 		const buildId: string | undefined = getVariable("Build.BuildId");
 		const definitionId: string | undefined = getVariable("System.DefinitionId");
+		const owner: string = `Pipeline: 'Retain Run Task'`;
 
 		if (projectName === undefined)
 		{
@@ -64,7 +64,8 @@ export class TaskHelper implements ITaskHelper
 
 			projectName: projectName ? projectName : "Unknown",
 			buildId: Number(buildId) ? Number(buildId) : 0,
-			definitionId: Number(definitionId) ? Number(definitionId) : 0
+			definitionId: Number(definitionId) ? Number(definitionId) : 0,
+			owner: owner
 		}
 	
 		return variables;
@@ -73,7 +74,7 @@ export class TaskHelper implements ITaskHelper
 	public async getParameters(): Promise<IParameters>
 	{
 		const daysToRetain: string = getInput("days", true)!;
-		const owner = `Pipeline: 'Retain Run Task'`;
+		
 		let daysValid = 0;
 
 		if (daysToRetain === undefined)
@@ -81,9 +82,11 @@ export class TaskHelper implements ITaskHelper
 			throw Error(`Input ${daysToRetain} is empty`);
 		}
 
+		const variables: IVariables = await this.getVariables();
+
 		let parameters: IParameters = {
 			daysToRetain: Number(daysToRetain),
-			owner: owner
+			variables
 		};
 
 		if (parameters.daysToRetain === 0)

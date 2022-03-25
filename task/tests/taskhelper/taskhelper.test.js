@@ -34,15 +34,18 @@ const TaskLibrary = __importStar(require("azure-pipelines-task-lib/task"));
 const taskhelper_1 = require("../../helpers/taskhelper/taskhelper");
 describe("TaskHelper", () => __awaiter(void 0, void 0, void 0, function* () {
     const taskHelper = new taskhelper_1.TaskHelper();
-    const endpointNameMock = "My-Endpoint";
     const endpointUrlMock = `https://dev.azure.com/My-Organization`;
     const endpointTokenMock = "My-Token";
     const projectNameMock = "My-Project";
     const buildIdMock = "1";
     const definitionIdMock = "2";
+    const ownerMock = "Pipeline: 'Retain Run Task'";
+    const daysToRetainMock = "0";
     let inputs;
     let variables;
     beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
+        const getInputMock = ts_mock_imports_1.ImportMock.mockFunction(TaskLibrary, "getInput");
+        getInputMock.callsFake((i) => { return inputs[i] || null; });
         const getVariableMock = ts_mock_imports_1.ImportMock.mockFunction(TaskLibrary, "getVariable");
         getVariableMock.callsFake((i) => { return variables[i] || null; });
         inputs = {};
@@ -53,8 +56,6 @@ describe("TaskHelper", () => __awaiter(void 0, void 0, void 0, function* () {
     }));
     it("Should return an endpoint", () => __awaiter(void 0, void 0, void 0, function* () {
         //#region Arrange
-        // inputs["endpointName"] = endpointNameMock;
-        // inputs["endpointType"] = "service";
         const getEndpointUrlMock = ts_mock_imports_1.ImportMock.mockFunction(TaskLibrary, "getEndpointUrl");
         getEndpointUrlMock.callsFake(() => endpointUrlMock);
         const getEndpointAuthorizationParameterMock = ts_mock_imports_1.ImportMock.mockFunction(TaskLibrary, "getEndpointAuthorizationParameter");
@@ -82,10 +83,23 @@ describe("TaskHelper", () => __awaiter(void 0, void 0, void 0, function* () {
         //#region ASSERT
         chai.expect(taskHelper.getVariables).to.not.throw;
         chai.expect(result).to.not.eq(null);
-        console.log(result);
         chai.expect(result.projectName).to.eq(projectNameMock);
         chai.expect(result.buildId).to.eq(1);
         chai.expect(result.definitionId).to.eq(2);
+        chai.expect(result.owner).to.eq(ownerMock);
+        //#end region
+    }));
+    it("Should return parameters", () => __awaiter(void 0, void 0, void 0, function* () {
+        //#region Arrange
+        inputs["days"] = daysToRetainMock;
+        //#end region
+        //#region ACT
+        const result = yield taskHelper.getParameters();
+        //#end region
+        //#region ASSERT
+        chai.expect(taskHelper.getParameters).to.not.throw;
+        chai.expect(result).to.not.eq(null);
+        chai.expect(result.daysToRetain).to.eq(365000);
         //#end region
     }));
 }));
