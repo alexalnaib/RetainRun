@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "retain-run",
     "name": "Retain Run",
-    "version": "0.0.1",
+    "version": "0.0.10",
     "publisher": "alexalnaib",
     "targets": [
         {
