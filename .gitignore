@@ -1,0 +1,5 @@
+**/*.vsix
+**/*.js
+**/*.log
+**/tests/*.xml
+**/node_modules
