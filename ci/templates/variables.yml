@@ -1,0 +1,15 @@
+variables:
+  taskName: RetainRunV1
+  tasksPath: Tasks
+  sourcePath: $(Build.SourcesDirectory)
+  artifactsPath: $(Build.ArtifactStagingDirectory)
+  taskArtifactPath: $(Pipeline.Workspace)/RetainRunV1
+  extensionArtifactPath: $(Pipeline.Workspace)/Extension/*.vsix
+  extensionPreviewVisibility: privatepreview
+  extensionPreviewShareWith: alexalnaib
+  extensionVisibility: publicpreview
+  extensionShareWith: ''
+  tasksEndpoint: alexalnaib.tasks
+  marketplaceEndpoint: alexalnaib.marketplace
+  version: $(Build.BuildId)
+  daysToRetain: 1
