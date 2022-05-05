@@ -1,13 +1,5 @@
 trigger: none
 
-resources:
-  repositories:
-  - repository: RetainRun
-    type: github
-    name: alexalnaib/RetainRun
-    ref: refs/heads/working/aa/fix-path
-    endpoint: alexalnaib
-
 stages:
 - stage: RetainRun
   dependsOn: []
