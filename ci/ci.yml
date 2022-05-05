@@ -20,7 +20,7 @@ parameters:
   default: false
 
 pool:
-  name: Azure Pipelines
+  name: Default
 
 workspace:
   clean: all

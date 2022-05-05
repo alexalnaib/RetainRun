@@ -24,7 +24,7 @@ stages:
   jobs:
   - job: Task
     pool:
-      name: Azure Pipelines
+      name: Default
     workspace:
       clean: all
     steps:
@@ -40,7 +40,7 @@ stages:
         publish: true
   - job: Extension
     pool:
-      name: Azure Pipelines
+      name: Default
     workspace:
       clean: all
     dependsOn:
@@ -63,7 +63,7 @@ stages:
   - ${{ if eq(parameters.publishPreview, true) }}:
     - job: Publish
       pool:
-        name: Azure Pipelines
+        name: Default
       workspace:
         clean: all
       steps:
@@ -77,7 +77,7 @@ stages:
   - ${{ if eq(parameters.testPreview, true) }}:
     - job: Test
       pool:
-        name: Azure Pipelines
+        name: Default
       workspace:
         clean: all
       ${{ if eq(parameters.publishPreview, true) }}:
@@ -96,7 +96,7 @@ stages:
   jobs:
   - deployment: Publish
     pool:
-      name: Azure Pipelines
+      name: Default
     workspace:
       clean: all
     environment: Marketplace
