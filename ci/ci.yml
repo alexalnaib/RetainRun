@@ -22,6 +22,14 @@ parameters:
 pool:
   name: Default
 
+resources:
+  repositories:
+  - repository: RetainRun
+    type: github
+    name: alexalnaib/RetainRun
+    ref: refs/heads/master
+    endpoint: alexalnaib
+
 workspace:
   clean: all
 
@@ -29,6 +37,7 @@ variables:
 - template: templates/variables.yml
 
 steps:
+- checkout: RetainRun
 - template: templates/build.yml
   parameters:
     name: ${{ variables.taskName }}

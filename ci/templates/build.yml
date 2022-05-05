@@ -58,4 +58,4 @@ steps:
 - ${{ if eq(parameters.publish, true) }}:
   - publish: ${{ parameters.path }}/${{ parameters.name }}
     displayName: Publish artifact
-    artifact: ${{ parameters.name }
+    artifact: ${{ parameters.name }}s
