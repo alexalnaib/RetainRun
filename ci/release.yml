@@ -22,6 +22,7 @@ resources:
     type: github
     name: alexalnaib/RetainRun
     ref: refs/heads/master
+    endpoint: alexalnaib
 
 variables:
 - template: templates/variables.yml
