@@ -16,6 +16,13 @@ parameters:
   type: boolean
   default: false
 
+resources:
+  repositories:
+  - repository: RetainRun
+    type: github
+    name: alexalnaib/RetainRun
+    ref: refs/heads/master
+
 variables:
 - template: templates/variables.yml
 
@@ -28,6 +35,7 @@ stages:
     workspace:
       clean: all
     steps:
+    - checkout: RetainRun
     - template: templates/build.yml
       parameters:
         name: ${{ variables.taskName }}
@@ -46,6 +54,7 @@ stages:
     dependsOn:
     - Task
     steps:
+    - checkout: RetainRun
     - template: templates/package.yml
       parameters:
         path: ${{ variables.artifactsPath }}
@@ -67,6 +76,7 @@ stages:
       workspace:
         clean: all
       steps:
+      - checkout: RetainRun
       - template: templates/publish.yml
         parameters:
           path: ${{ variables.extensionArtifactPath }}
@@ -84,6 +94,7 @@ stages:
         dependsOn:
         - Publish
       steps:
+      - checkout: RetainRun
       - template: templates/test.yml
         parameters:
           daysToRetain: ${{ variables.daysToRetain }}
