@@ -11,10 +11,10 @@ export class TaskHelper implements ITaskHelper
 	{
 		// Use upper-case default system endpoint name
 		// For compatibility with non-Windows systems
-		let endpointName: string = "SYSTEMVSSCONNECTION";
-		let token: string = "AccessToken";
+		const endpointName = "SYSTEMVSSCONNECTION";
+		const token = "AccessToken";
 
-		let endpointUrl: string | undefined = getEndpointUrl(endpointName, true);
+		const endpointUrl: string | undefined = getEndpointUrl(endpointName, true);
 
 		if (!endpointUrl)
 		{
@@ -43,7 +43,7 @@ export class TaskHelper implements ITaskHelper
 		const projectName: string | undefined = getVariable("System.TeamProject");
 		const buildId: string | undefined = getVariable("Build.BuildId");
 		const definitionId: string | undefined = getVariable("System.DefinitionId");
-		const owner: string = `Pipeline: 'Retain Run Task'`;
+		const owner = `Pipeline: 'Retain Run Task'`;
 
 		if (projectName === undefined)
 		{
@@ -84,7 +84,7 @@ export class TaskHelper implements ITaskHelper
 
 		const variables: IVariables = await this.getVariables();
 
-		let parameters: IParameters = {
+		const parameters: IParameters = {
 			daysToRetain: Number(daysToRetain),
 			variables
 		};

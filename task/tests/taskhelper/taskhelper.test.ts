@@ -10,15 +10,15 @@ describe("TaskHelper", async () =>{
 
 	const taskHelper: ITaskHelper = new TaskHelper();
 
-	const endpointUrlMock: string = `https://dev.azure.com/My-Organization`;
-	const endpointTokenMock: string = "My-Token";
+	const endpointUrlMock = `https://dev.azure.com/My-Organization`;
+	const endpointTokenMock = "My-Token";
 
-	const projectNameMock: string = "My-Project";
-	const buildIdMock: string = "1";
-	const definitionIdMock: string = "2";
-	const ownerMock: string = "Pipeline: 'Retain Run Task'"
+	const projectNameMock = "My-Project";
+	const buildIdMock = "1";
+	const definitionIdMock = "2";
+	const ownerMock = "Pipeline: 'Retain Run Task'"
 
-	const daysToRetainMock: string = "0"
+	const daysToRetainMock = "0"
 
 	let inputs: {[key: string]: string | boolean};
 	let variables: {[key: string]: string};
