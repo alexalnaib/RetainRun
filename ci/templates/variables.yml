@@ -1,9 +1,9 @@
 variables:
-  taskName: RetainRunV1
-  tasksPath: Tasks
+  taskName: RetainRun
+  tasksPath: Task
   sourcePath: $(Build.SourcesDirectory)
   artifactsPath: $(Build.ArtifactStagingDirectory)
-  taskArtifactPath: $(Pipeline.Workspace)/RetainRunV1
+  taskArtifactPath: $(Pipeline.Workspace)/RetainRun
   extensionArtifactPath: $(Pipeline.Workspace)/Extension/*.vsix
   extensionPreviewVisibility: privatepreview
   extensionPreviewShareWith: alexalnaib
