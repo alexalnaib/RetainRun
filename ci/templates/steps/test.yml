@@ -2,7 +2,7 @@ parameters:
   daysToRetain: ""
 
 steps:
-- task: RetainRun@1
+- task: RetainRun@0
   displayName: Retain Run
   inputs:
     days: ${{ parameters.daysToRetain }}
