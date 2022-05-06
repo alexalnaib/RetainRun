@@ -19,7 +19,7 @@ stages:
   jobs:
   - template: templates/preview.yml
     parameters:
-      environmentName: Marketplace
+      environmentName: vs-marketplace-con
 
 - stage: Release
   dependsOn:
@@ -29,4 +29,4 @@ stages:
   jobs:
   - template: templates/release.yml
     parameters:
-      environmentName: Marketplace
+      environmentName: vs-marketplace-con
