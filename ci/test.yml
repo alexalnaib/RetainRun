@@ -1,7 +1,16 @@
 trigger: none
 
+resources:
+  repositories:
+  - repository: RetainRun
+    type: github
+    name: alexalnaib/RetainRun
+    ref: refs/heads/master
+    endpoint: alexalnaib
+
 stages:
 - stage: RetainRun
   dependsOn: []
   jobs:
+  - checkout: RetainRun
   - template: templates/test.yml
