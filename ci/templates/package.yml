@@ -17,7 +17,7 @@ steps:
   displayName: Copy tasks
   inputs:
     source: current
-    path: ${{ parameters.path }}/Tasks
+    path: ${{ parameters.path }}/Task
 
 - task: PackageAzureDevOpsExtension@3
   displayName: Package extension

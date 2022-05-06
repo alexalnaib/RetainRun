@@ -1,8 +1,10 @@
-parameters:
-  daysToRetain: ""
-
-steps:
-- task: RetainRun@1
-  displayName: Retain Run
-  inputs:
-    days: ${{ parameters.daysToRetain }}
+jobs:
+- job: RetainRun
+  pool:
+    name: Default
+  workspace:
+    clean: all
+  steps:
+  - template: steps/test.yml
+    parameters:
+      daysToRetain: 1
