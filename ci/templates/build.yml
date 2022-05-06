@@ -10,6 +10,7 @@ jobs:
   variables:
   - template: variables.yml
   steps:
+  - checkout: RetainRun
   - template: steps/build.yml
     parameters:
       name: ${{ variables.taskName }}
@@ -32,6 +33,7 @@ jobs:
     dependsOn:
     - RetainRun
     steps:
+    - checkout: RetainRun
     - template: steps/package.yml
       parameters:
         path: ${{ variables.artifactsPath }}

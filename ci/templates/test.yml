@@ -5,6 +5,7 @@ jobs:
   workspace:
     clean: all
   steps:
+  - checkout: RetainRun
   - template: steps/test.yml
     parameters:
       daysToRetain: 1
