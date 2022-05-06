@@ -27,7 +27,7 @@ resources:
   - repository: RetainRun
     type: github
     name: alexalnaib/RetainRun
-    ref: refs/heads/working/aa/fix-path
+    ref: refs/heads/master
     endpoint: alexalnaib
 
 workspace:
