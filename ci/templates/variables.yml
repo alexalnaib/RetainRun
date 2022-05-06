@@ -10,6 +10,6 @@ variables:
   extensionVisibility: publicpreview
   extensionShareWith: ''
   tasksEndpoint: alexalnaib.tasks
-  marketplaceEndpoint: alexalnaib.marketplace
+  marketplaceEndpoint: vs-marketplace-con
   version: $(Build.BuildId)
   daysToRetain: 1
