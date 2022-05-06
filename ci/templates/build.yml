@@ -24,7 +24,7 @@ jobs:
 - ${{ if eq(parameters.extension, true) }}:
   - job: Extension
     pool:
-    name: default
+      name: default
     workspace:
       clean: all
     variables:
