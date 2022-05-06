@@ -3,7 +3,7 @@ parameters:
 
 jobs:
 - job: RetainRun
-  pool: 
+  pool:
     name: default
   workspace:
     clean: all
@@ -23,7 +23,7 @@ jobs:
 
 - ${{ if eq(parameters.extension, true) }}:
   - job: Extension
-    pool: 
+    pool:
     name: default
     workspace:
       clean: all
