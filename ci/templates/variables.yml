@@ -1,6 +1,6 @@
 variables:
   taskName: RetainRun
-  tasksPath: Task
+  tasksPath: $(Pipeline.Workspace)/Task
   sourcePath: $(Build.SourcesDirectory)
   artifactsPath: $(Build.ArtifactStagingDirectory)
   taskArtifactPath: $(Pipeline.Workspace)/RetainRun
