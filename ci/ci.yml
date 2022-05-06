@@ -6,21 +6,9 @@ pr:
     - master
   paths:
     include:
-    - Tasks/*
+    - ci/*
+    - task/*
   autoCancel: true
-
-parameters:
-- name: publishTask
-  displayName: Publish task artifact
-  type: boolean
-  default: false
-- name: publishExtension
-  displayName: Publish extension artifact
-  type: boolean
-  default: false
-
-pool:
-  name: Default
 
 resources:
   repositories:
@@ -30,29 +18,7 @@ resources:
     ref: refs/heads/master
     endpoint: alexalnaib
 
-workspace:
-  clean: all
-
-variables:
-- template: templates/variables.yml
-
-steps:
-- checkout: RetainRun
+jobs:
 - template: templates/build.yml
   parameters:
-    name: ${{ variables.taskName }}
-    path: ${{ variables.tasksPath }}
-    restore: true
-    lint: true
-    build: true
-    test: true
-    publish: ${{ parameters.publishTask }}
-- template: templates/package.yml
-  parameters:
-    path: ${{ variables.artifactsPath }}
-    contents: |
-      Images/**
-      LICENSE
-      *.md
-      *.json
-    publish: ${{ parameters.publishExtension }}
+    extension: true

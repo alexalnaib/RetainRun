@@ -4,17 +4,7 @@ trigger:
     - master
   paths:
     include:
-    - Tasks/*
-
-parameters:
-- name: publishPreview
-  displayName: Publish preview extension
-  type: boolean
-  default: true
-- name: testPreview
-  displayName: Test preview tasks
-  type: boolean
-  default: false
+    - task/*
 
 resources:
   repositories:
@@ -24,81 +14,20 @@ resources:
     ref: refs/heads/master
     endpoint: alexalnaib
 
-variables:
-- template: templates/variables.yml
-
 stages:
 - stage: Build
   jobs:
-  - job: Task
-    pool:
-      name: Default
-    workspace:
-      clean: all
-    steps:
-    - checkout: RetainRun
-    - template: templates/build.yml
-      parameters:
-        name: ${{ variables.taskName }}
-        path: ${{ variables.tasksPath }}
-        restore: true
-        lint: true
-        build: true
-        test: true
-        clean: true
-        publish: true
-  - job: Extension
-    pool:
-      name: Default
-    workspace:
-      clean: all
-    dependsOn:
-    - Task
-    steps:
-    - checkout: RetainRun
-    - template: templates/package.yml
-      parameters:
-        path: ${{ variables.artifactsPath }}
-        contents: |
-          Images/**
-          LICENSE
-          *.md
-          *.json
-        publish: true
+  - template: templates/build.yml
+    parameters:
+      extension: true
 
 - stage: Preview
   dependsOn:
   - Build
   jobs:
-  - ${{ if eq(parameters.publishPreview, true) }}:
-    - job: Publish
-      pool:
-        name: Default
-      workspace:
-        clean: all
-      steps:
-      - checkout: RetainRun
-      - template: templates/publish.yml
-        parameters:
-          path: ${{ variables.extensionArtifactPath }}
-          endpointName: ${{ variables.marketplaceEndpoint }}
-          visibility: ${{ variables.extensionPreviewVisibility }}
-          shareWith: ${{ variables.extensionPreviewShareWith }}
-          tag: preview
-  - ${{ if eq(parameters.testPreview, true) }}:
-    - job: Test
-      pool:
-        name: Default
-      workspace:
-        clean: all
-      ${{ if eq(parameters.publishPreview, true) }}:
-        dependsOn:
-        - Publish
-      steps:
-      - checkout: RetainRun
-      - template: templates/test.yml
-        parameters:
-          daysToRetain: ${{ variables.daysToRetain }}
+  - template: templates/preview.yml
+    parameters:
+      environmentName: Marketplace
 
 - stage: Release
   dependsOn:
@@ -106,19 +35,6 @@ stages:
   - Preview
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   jobs:
-  - deployment: Publish
-    pool:
-      name: Default
-    workspace:
-      clean: all
-    environment: Marketplace
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - template: templates/publish.yml
-            parameters:
-              path: ${{ variables.extensionArtifactPath }}
-              endpointName: ${{ variables.marketplaceEndpoint }}
-              visibility: ${{ variables.extensionVisibility }}
-              shareWith: ${{ variables.extensionShareWith }}
+  - template: templates/release.yml
+    parameter:
+      environmentName: Marketplace
