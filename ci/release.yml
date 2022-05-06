@@ -17,7 +17,6 @@ resources:
 stages:
 - stage: Build
   jobs:
-  - checkout: RetainRun
   - template: templates/build.yml
     parameters:
       extension: true
@@ -26,7 +25,6 @@ stages:
   dependsOn:
   - Build
   jobs:
-  - checkout: RetainRun
   - template: templates/preview.yml
     parameters:
       environmentName: vs-marketplace-con
@@ -37,7 +35,6 @@ stages:
   - Preview
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   jobs:
-  - checkout: RetainRun
   - template: templates/release.yml
     parameters:
       environmentName: vs-marketplace-con

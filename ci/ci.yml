@@ -19,7 +19,6 @@ resources:
     endpoint: alexalnaib
 
 jobs:
-- checkout: RetainRun
 - template: templates/build.yml
   parameters:
     extension: true

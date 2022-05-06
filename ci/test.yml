@@ -12,5 +12,4 @@ stages:
 - stage: RetainRun
   dependsOn: []
   jobs:
-  - checkout: RetainRun
   - template: templates/test.yml
