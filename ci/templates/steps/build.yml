@@ -1,5 +1,4 @@
 parameters:
-  name: ""
   path: ""
   restore: false
   lint: false
@@ -14,14 +13,14 @@ steps:
   - task: Npm@1
     displayName: Restore packages
     inputs:
-      workingDir: ${{ parameters.path }}/${{ parameters.name }}
+      workingDir: ${{ parameters.path }}
 
 - ${{ if eq(parameters.lint, true) }}:
   - task: Npm@1
     displayName: Run lint
     inputs:
       command: custom
-      workingDir: ${{ parameters.path }}/${{ parameters.name }}
+      workingDir: ${{ parameters.path }}
       customCommand: run lint
 
 - ${{ if eq(parameters.build, true) }}:
@@ -29,7 +28,7 @@ steps:
     displayName: Run build
     inputs:
       command: custom
-      workingDir: ${{ parameters.path }}/${{ parameters.name }}
+      workingDir: ${{ parameters.path }}
       customCommand: run build
 
 - ${{ if eq(parameters.test, true) }}:
@@ -37,7 +36,7 @@ steps:
     displayName: Run tests
     inputs:
       command: custom
-      workingDir: ${{ parameters.path }}/${{ parameters.name }}
+      workingDir: ${{ parameters.path }}
       customCommand: run test
 
 - ${{ if eq(parameters.clean, true) }}:
@@ -45,7 +44,7 @@ steps:
     displayName: Run clean
     inputs:
       command: custom
-      workingDir: ${{ parameters.path }}/${{ parameters.name }}
+      workingDir: ${{ parameters.path }}
       customCommand: run clean
 
 - ${{ if eq(parameters.test, true) }}:
@@ -56,6 +55,6 @@ steps:
     condition: always()
 
 - ${{ if eq(parameters.publish, true) }}:
-  - publish: ${{ parameters.path }}/${{ parameters.name }}
+  - publish: ${{ parameters.path }}
     displayName: Publish artifact
     artifact: ${{ parameters.name }}s

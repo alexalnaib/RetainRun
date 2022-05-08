@@ -13,7 +13,6 @@ jobs:
   - checkout: RetainRun
   - template: steps/build.yml
     parameters:
-      name: ${{ variables.taskName }}
       path: ${{ variables.taskPath }}
       restore: true
       lint: true

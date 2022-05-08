@@ -1,15 +1,10 @@
 variables:
-  taskName: RetainRun
-  taskPath: Task
-  sourcePath: $(Build.SourcesDirectory)
+  taskPath: task
   artifactsPath: $(Build.ArtifactStagingDirectory)
-  taskArtifactPath: $(Pipeline.Workspace)/RetainRun
   extensionArtifactPath: $(Pipeline.Workspace)/Extension/*.vsix
   extensionPreviewVisibility: privatepreview
-  extensionPreviewShareWith: alexalnaib
-  extensionVisibility: publicpreview
-  extensionShareWith: ''
-  tasksEndpoint: alexalnaib.tasks
+  extensionPreviewShareWith: alexalnaib,iag
+  extensionVisibility: public
+  extensionVersion: $(Build.BuildId)
   marketplaceEndpoint: vs-marketplace-con
-  version: $(Build.BuildId)
   daysToRetain: 1
