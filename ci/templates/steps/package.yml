@@ -1,5 +1,9 @@
 parameters:
   path: ""
+  endpointName: ""
+  publisherId: ""
+  extensionId: ""
+  extensionName: ""
   contents: ""
   publish: false
 
@@ -17,12 +21,28 @@ steps:
   displayName: Copy tasks
   inputs:
     source: current
-    path: ${{ parameters.path }}/Task
+    path: ${{ parameters.path }}/task
+
+- task: QueryAzureDevOpsExtensionVersion@3
+  displayName: Query extension version
+  inputs:
+    connectTo: VsTeam
+    connectedServiceName: ${{ parameters.endpointName }}
+    publisherId: ${{ parameters.publisherId }}
+    extensionId: ${{ parameters.extensionId }}
+    versionAction: Patch
+    outputVariable: Task.Extension.Version
 
 - task: PackageAzureDevOpsExtension@3
   displayName: Package extension
   inputs:
     rootFolder: ${{ parameters.path }}
+    publisherId: ${{ parameters.publisherId }}
+    extensionId: ${{ parameters.extensionId }}
+    extensionName: ${{ parameters.extensionName }}
+    extensionVersion: $(Task.Extension.Version)
+    updateTasksVersion: true
+    updateTasksVersionType: patch
     outputVariable: extensionPath
 
 - ${{ if eq(parameters.publish, true) }}:

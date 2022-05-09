@@ -36,6 +36,10 @@ jobs:
     - template: steps/package.yml
       parameters:
         path: ${{ variables.artifactsPath }}
+        endpointName: ${{ variables.marketplaceEndpoint }}
+        publisherId: ${{ variables.publisherId }}
+        extensionId: ${{ variables.extensionId }}
+        extensionName: ${{ variables.extensionName }}
         contents: |
           Docs/**
           Images/**
