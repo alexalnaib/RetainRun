@@ -10,6 +10,14 @@ pr:
     - task/*
   autoCancel: true
 
+resources:
+  repositories:
+  - repository: RetainRun
+    type: github
+    name: alexalnaib/RetainRun
+    ref: refs/heads/master
+    endpoint: alexalnaib
+
 jobs:
 - template: templates/build.yml
   parameters:

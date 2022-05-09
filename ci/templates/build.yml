@@ -10,9 +10,9 @@ jobs:
   variables:
   - template: variables.yml
   steps:
+  - checkout: RetainRun
   - template: steps/build.yml
     parameters:
-      name: ${{ variables.taskName }}
       path: ${{ variables.taskPath }}
       restore: true
       lint: true
@@ -24,7 +24,7 @@ jobs:
 - ${{ if eq(parameters.extension, true) }}:
   - job: Extension
     pool:
-    name: default
+      name: default
     workspace:
       clean: all
     variables:
@@ -32,9 +32,14 @@ jobs:
     dependsOn:
     - RetainRun
     steps:
+    - checkout: RetainRun
     - template: steps/package.yml
       parameters:
         path: ${{ variables.artifactsPath }}
+        endpointName: ${{ variables.marketplaceEndpoint }}
+        publisherId: ${{ variables.publisherId }}
+        extensionId: ${{ variables.extensionId }}
+        extensionName: ${{ variables.extensionName }}
         contents: |
           Docs/**
           Images/**

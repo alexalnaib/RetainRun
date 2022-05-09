@@ -6,6 +6,14 @@ trigger:
     include:
     - task/*
 
+resources:
+  repositories:
+  - repository: RetainRun
+    type: github
+    name: alexalnaib/RetainRun
+    ref: refs/heads/master
+    endpoint: alexalnaib
+
 stages:
 - stage: Build
   jobs:
