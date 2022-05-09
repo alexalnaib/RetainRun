@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "retain-run",
     "name": "Retain Run",
-    "version": "0.0.12",
+    "version": "1.0.0",
     "publisher": "alexalnaib",
     "targets": [
         {
@@ -15,6 +15,14 @@
     ],
     "icons": {
         "default": "images/icon.png"
+    },
+    "content": {
+        "details": {
+            "path": "README.md"
+        },
+        "overview": {
+            "path": "Overview.md"
+        }
     },
     "files": [
         {
