@@ -29,7 +29,8 @@
             "path": "task"
         },
         {
-            "path": "images"
+            "path": "images",
+            "addressable": true
         }
     ],
     "contributions": [

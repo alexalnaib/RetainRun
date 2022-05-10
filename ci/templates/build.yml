@@ -41,8 +41,7 @@ jobs:
         extensionId: ${{ variables.extensionId }}
         extensionName: ${{ variables.extensionName }}
         contents: |
-          Docs/**
-          Images/**
+          images/**
           *.md
           *.json
         publish: true
