@@ -15,7 +15,6 @@ stages:
   - template: templates/test.yml
 
 - stage: nothing
-  dependsOn:: RetainRun
   jobs:
     - job: nothing
       steps:
