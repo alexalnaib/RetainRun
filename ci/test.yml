@@ -13,3 +13,10 @@ stages:
   dependsOn: []
   jobs:
   - template: templates/test.yml
+
+- stage: nothing
+  dependsOn:: RetainRun
+  jobs:
+    - job: nothing
+      steps:
+      - script: echo "Hello World"
